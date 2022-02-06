@@ -1,6 +1,8 @@
 import pygame
 import time
 import random
+import os 
+
  
 pygame.init()
  
@@ -24,13 +26,27 @@ snake_speed = 8
  
 font_style = pygame.font.SysFont("bahnschrift", 25)
 score_font = pygame.font.SysFont("comicsansms", 35)
- 
+
+score = 0 
  
 def Your_score(score):
     value = score_font.render("Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
+    # Writting the score in a file
+    with open("score_file.txt", "a") as file_score:
+        # print(str(score))
+        file_score.write(str(score)) 
  
- 
+
+def last_score():
+    file = 'score_file.txt'
+    if( os.path.is_file(file) == True):
+        with open (file,"r") as read_file:
+            file2 = read_file.read()
+            print(file2)
+        #output the last score and show it on screen
+
+
  
 def our_snake(snake_block, snake_list):
     for x in snake_list:
@@ -109,7 +125,7 @@ def gameLoop():
                 game_close = True
  
         our_snake(snake_block, snake_List)
-        Your_score(Length_of_snake - 1)
+        
  
         pygame.display.update()
  
@@ -121,6 +137,7 @@ def gameLoop():
         clock.tick(snake_speed)
  
     pygame.quit()
+    Your_score(Length_of_snake - 1)
     quit()
  
  
