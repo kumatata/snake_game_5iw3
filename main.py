@@ -32,10 +32,7 @@ score = 0
 def Your_score(score):
     value = score_font.render("Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
-    # Writting the score in a file
-    with open("score_file.txt", "a") as file_score:
-        # print(str(score))
-        file_score.write(str(score)) 
+
  
 
 def last_score():
@@ -79,7 +76,7 @@ def gameLoop():
         while game_close == True:
             dis.fill(blue)
             message("Vous avez perdu! Faites 'c' pour recommencer ou 'q' pour quitter ", red)
-            Your_score(Length_of_snake - 1)
+            Your_score(Length_of_snake - 1)  
             pygame.display.update()
  
             for event in pygame.event.get():
@@ -126,7 +123,8 @@ def gameLoop():
  
         our_snake(snake_block, snake_List)
         
- 
+        Your_score(Length_of_snake - 1)  
+       
         pygame.display.update()
  
         if x1 == foodx and y1 == foody:
@@ -137,7 +135,10 @@ def gameLoop():
         clock.tick(snake_speed)
  
     pygame.quit()
-    Your_score(Length_of_snake - 1)
+    # Writting the score in a file
+    with open("score_file.txt", "w") as file_score:
+        # print(str(score))
+        file_score.write(str(Length_of_snake - 1))  
     quit()
  
  
