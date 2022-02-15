@@ -33,7 +33,6 @@ def Your_score(score):
     dis.blit(value, [0, 0])
 
 
-   
 def show_last_score():
     if(os.path.isfile("score_file.txt") == True):
         all_score = []
@@ -42,16 +41,13 @@ def show_last_score():
                 all_score.append(score.rstrip())
             last_score = all_score[-1]
 
-
-            output = score_font.render("Last score: " +   last_score , True, green)
+            output = score_font.render(
+                "Last score: " + last_score, True, green)
 
             dis.blit(output, [0, 350])
             # pygame.display.update()
 
 
-    
-
- 
 def our_snake(snake_block, snake_list):
     for x in snake_list:
         pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
@@ -77,15 +73,20 @@ def gameLoop():
 
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
-    
+
     while not game_over:
         while game_close == True:
             dis.fill(blue)
             message(
                 "Vous avez perdu! Faites 'c' pour recommencer ou 'q' pour quitter ", red)
+            with open("score_file.txt", "a", newline='') as file_score:
+                score = str(Length_of_snake - 1)
+                file_score.write(score + os.linesep)
+            show_last_score()
             Your_score(Length_of_snake - 1)
-            pygame.display.update()
 
+            pygame.display.update()
+            show_last_score()
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
