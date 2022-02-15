@@ -165,7 +165,8 @@ def game_loop():
                 0, game_width - snake_block) / 10.0) * 10.0
             slow_y = round(random.randrange(
                 0, game_height - snake_block) / 10.0) * 10.0
-            snake_speed -= 1
+            if snake_speed > 2:
+                snake_speed -= 1
 
         clock.tick(snake_speed)
 
