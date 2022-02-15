@@ -14,9 +14,9 @@ green = (0, 255, 0)
 blue = (50, 153, 213)
 medium_blue = (0, 0, 255)
 
-dis_width = 600
+dis_width = 900
 dis_height = 400
-game_width = 600
+game_width = 900
 game_height = 350
 
 dis = pygame.display.set_mode((dis_width, dis_height))
@@ -40,6 +40,7 @@ def show_last_score():
     if(os.path.isfile("score_file.txt") == True):
         all_score = []
         with open("score_file.txt", "r") as read_file:
+
             for score in read_file:
                 all_score.append(score.rstrip())
             last_score = all_score[-1]
@@ -99,6 +100,9 @@ def game_loop():
                         game_over = True
                         game_close = False
                     if event.key == pygame.K_c:
+                        with open("score_file.txt", "a", newline='') as file_score:
+                            score = str(length_of_snake - 1)
+                            file_score.write(score + os.linesep)
                         game_loop()
 
         for event in pygame.event.get():
